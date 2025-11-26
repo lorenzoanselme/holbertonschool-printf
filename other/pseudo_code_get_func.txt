@@ -1,0 +1,16 @@
+Définir un tableau de structures contenant :
+    - un spécificateur (caractère)
+    - un pointeur de fonction associé
+
+Initialiser un index j = 0
+
+Tant que le spécificateur du tableau à l'index j n'est pas '\0' :
+
+    si le spécificateur du tableau correspond au caractère reçu en argument :
+        retourner le pointeur de fonction associé
+
+    sinon :
+        avancer à l'index suivant (j++)
+
+Si aucun spécificateur correspondant n'a été trouvé :
+    retourner NULL
