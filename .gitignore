@@ -1,0 +1,29 @@
+# Ignore compiled binaries
+a.out
+*.out
+*.o
+*.exe
+
+# Ignore test executables
+printf_test
+test*
+main
+
+# Ignore editor backup files
+*.swp
+*.swo
+*~
+
+# Ignore VSCode workspace settings
+.vscode/
+
+# Ignore MacOS metadata
+.DS_Store
+
+# Ignore temporary files
+*.tmp
+*.log
+
+# Ignore user-created test files
+main.c
+test_*.c

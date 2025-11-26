@@ -23,6 +23,8 @@ int (*get_func(char s))(va_list);
 int print_char(va_list args);
 int print_string(va_list args);
 int print_percent(va_list args);
+int print_int(va_list args);
+int print_number(unsigned int n);
 
 int _putchar(char c);
 

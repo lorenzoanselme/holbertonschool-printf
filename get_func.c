@@ -2,7 +2,7 @@
 
 /**
  * get_func - Selects the correct function to handle a format specifier
- * 
+ *
  * @s: The format specifier to match
  *
  * Return: Pointer to the corresponding function, or NULL if not found.
@@ -16,8 +16,9 @@ int (*get_func(char s))(va_list)
 		{'c', print_char},
 		{'s', print_string},
 		{'%', print_percent},
-		{'\0', NULL}
-	};
+		{'d', print_int},
+		{'i', print_int},
+		{'\0', NULL}};
 
 	while (funcs[j].spec != '\0')
 	{
