@@ -1,146 +1,169 @@
-# \_printf
+# 🖨️ Custom `_printf` — C Language Project (Holberton School)
 
-Custom implementation of the C standard library function `printf`.\
-This project reproduces formatted output functionality using variadic
-functions and manual parsing.
+A modular, clean, and professional re‑implementation of the C standard library function `printf`.  
+This project demonstrates mastery of variadic functions, string parsing, function pointers, and low‑level output.
 
-------------------------------------------------------------------------
+---
 
-## Table of Contents
+## 📌 Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Supported Format Specifiers](#supported-format-specifiers)
+- [Project Architecture](#project-architecture)
+- [Flowchart](#flowchart)
+- [How `_printf` Works](#how-_printf-works)
+- [Compilation](#compilation)
+- [Usage Examples](#usage-examples)
+- [Return Value](#return-value)
+- [Current Limitations](#current-limitations)
+- [Authors](#authors)
 
-1.  Introduction\
-2.  Features\
-3.  Supported Conversion Specifiers\
-4.  Project Requirements\
-5.  Compilation\
-6.  Usage Example\
-7.  File Structure\
-8.  Notes\
-9.  Authors
+---
 
-------------------------------------------------------------------------
+## 📖 Overview
 
-## 1. Introduction
+This project is a custom implementation of the classic `printf` function.  
+It replicates core behaviors such as format parsing and variadic argument handling, while maintaining a modular and expandable code structure.
 
-The `_printf` function is a simplified, custom version of the standard
-`printf` function.\
-It processes a format string, handles conversion specifiers, and outputs
-formatted text using `write()`.
+The goal is pedagogical: to deeply understand  
+- how formatted printing works,  
+- how `va_list` is used,  
+- how dispatch tables (struct + function pointer) work,  
+- how to build scalable low‑level C programs.
 
-This project focuses on: - Understanding variadic functions
-(`stdarg.h`) - Parsing format strings - Managing output without using
-the standard `printf` - Modular C programming following Betty style -
-Building a complete group project in C
+---
 
-------------------------------------------------------------------------
+## ✨ Features
 
-## 2. Features
+- Clean and professional architecture  
+- Fully modular components  
+- Dispatch table for specifier–function mapping  
+- Accurate counting of printed characters  
+- Graceful handling of invalid format specifiers  
+- No use of the standard `printf` or related functions  
 
--   Parses a format string character by character
--   Handles multiple conversion specifiers
--   Modular design with separate handlers
--   Fully compliant with project restrictions
--   No global variables
--   No more than 5 functions per file
--   Includes header file protections
+---
 
-------------------------------------------------------------------------
+## 🔤 Supported Format Specifiers
 
-## 3. Supported Conversion Specifiers
+| Specifier | Meaning                         | Example Output |
+|-----------|----------------------------------|----------------|
+| `%c`      | Print a character                | `A`            |
+| `%s`      | Print a string                   | `Hello`        |
+| `%%`      | Print a literal percent sign     | `%`            |
 
-  Specifier   Description
-  ----------- -----------------------
-  `%c`        Character
-  `%s`        String
-  `%%`        Prints a percent sign
-  `%d`        Signed integer
-  `%i`        Signed integer
+Additional specifiers can easily be added by extending the dispatch table.
 
-Additional specifiers (hex, octal, unsigned, pointers, etc.) may be
-added as needed to match all test cases.
+---
 
-------------------------------------------------------------------------
+## 🗂️ Project Architecture
 
-## 4. Project Requirements
+```
+holbertonschool-printf/
+│
+├── _printf.c          # Core printf logic
+├── get_func.c         # Selector for specifier handlers
+├── print_char.c       # Handler for %c
+├── print_string.c     # Handler for %s
+├── print_percent.c    # Handler for %%
+├── _putchar.c         # Low-level output using write()
+│
+└── main.h             # Header: structs, prototypes, system includes
+```
 
-This project follows the Holberton School C programming standards.
+---
 
--   All files compiled on Ubuntu 20.04 LTS using:\
-    `gcc -Wall -Werror -Wextra -pedantic -std=gnu89`
--   All files must end with a new line\
--   Betty style compliance is mandatory\
--   No use of global variables\
--   Maximum of 5 functions per file\
--   You must include a `main.h` header with all prototypes\
--   Header files must be guarded
+## 📊 Flowchart
 
-### Authorized Functions
+The execution flow of `_printf` is represented below:
 
--   `write`
--   `malloc`
--   `free`
--   `va_start`
--   `va_end`
--   `va_copy`
--   `va_arg`
+![Flowchart](flowchart_printf.png)
 
-------------------------------------------------------------------------
+---
 
-## 5. Compilation
+## 🧠 How `_printf` Works
+
+1. Validate the input format string  
+2. Initialize the variadic argument list  
+3. Iterate through each character in the format string  
+4. If the character is not `%`, print it directly  
+5. If `%` is found:  
+   - Read the next character (specifier)  
+   - Look up the correct handler in the dispatch table  
+   - Call the handler if found  
+   - Otherwise print `%` + the unknown specifier  
+6. Keep track of all printed characters  
+7. Return the total count  
+
+---
+
+## 🛠️ Compilation
 
 Compile using:
 
-``` bash
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 -Wno-format *.c -o printf
+```bash
+gcc -Wall -Wextra -Werror -pedantic *.c -o printf_test
 ```
 
-The `-Wno-format` flag is useful when comparing your `_printf` with the
-system `printf`.
+Run:
 
-------------------------------------------------------------------------
-
-## 6. Usage Example
-
-``` c
-#include "main.h"
-
-int main(void)
-{
-    _printf("Hello %s, number: %d\n", "World", 42);
-    return 0;
-}
+```bash
+./printf_test
 ```
 
-------------------------------------------------------------------------
+---
 
-## 7. File Structure
+## 🧪 Usage Examples
 
-A recommended project structure:
+```c
+_printf("Hello %s %c %%!\n", "World", 'X');
+```
 
-    ├── main.h
-    ├── _printf.c
-    ├── format_parser.c
-    ├── handlers/
-    │   ├── handle_char.c
-    │   ├── handle_string.c
-    │   ├── handle_int.c
-    ├── utils/
-    │   ├── print_number.c
-    │   ├── write_buffer.c
-    └── README.md
+**Output:**
+```
+Hello World X %!
+```
 
-------------------------------------------------------------------------
+---
 
-## 8. Notes
+```c
+_printf("Character: %c\n", 'A');
+```
 
--   Do not push any `main.c` files to the root of your repository\
--   Your `_printf` should match `printf` behavior for unspecified edge
-    cases\
--   Work as a team to develop a complete test suite
+**Output:**
+```
+Character: A
+```
 
-------------------------------------------------------------------------
+---
 
-## 9. Authors
+```c
+_printf("String: %s\n", "Holberton");
+```
 
-Developed as part of the Holberton School Low-Level Programming
-curriculum.
+**Output:**
+```
+String: Holberton
+```
+
+---
+
+## 🔙 Return Value
+
+`_printf` returns:
+- The **total number of printed characters**  
+- `-1` if `format` is `NULL`  
+- `-1` if `%` is the last character in the string  
+
+---
+
+## 👨‍💻 Authors
+
+Developed by:
+
+- **Lorenzo ANSELME**  
+- **Esteban CALLEJO**  
+
+Holberton School — Low-Level Programming.
+
+---
