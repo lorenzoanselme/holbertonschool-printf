@@ -18,6 +18,7 @@ int (*get_func(char s))(va_list)
 		{'%', print_percent},
 		{'d', print_int},
 		{'i', print_int},
+		{'b', print_binary},
 		{'\0', NULL}};
 
 	while (funcs[j].spec != '\0')
