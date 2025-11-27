@@ -30,6 +30,7 @@ int print_unsigned(va_list args);
 int print_octal(va_list args);
 int print_hex_lower(va_list args);
 int print_hex_upper(va_list args);
+int print_S(va_list args);
 
 int print_unsigned_base(unsigned long n, int base, char *digits);
 

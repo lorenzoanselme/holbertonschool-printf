@@ -23,6 +23,7 @@ int (*get_func(char s))(va_list)
 		{'o', print_octal},
 		{'x', print_hex_lower},
 		{'X', print_hex_upper},
+		{'S', print_S},
 		{'\0', NULL}};
 
 	while (funcs[j].spec != '\0')
