@@ -24,6 +24,7 @@ int (*get_func(char s))(va_list)
 		{'x', print_hex_lower},
 		{'X', print_hex_upper},
 		{'S', print_S},
+		{'p', print_pointer},
 		{'\0', NULL}};
 
 	while (funcs[j].spec != '\0')
