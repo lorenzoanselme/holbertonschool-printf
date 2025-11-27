@@ -1,0 +1,82 @@
+.TH _PRINTF 3 "January 2025" "Holberton School" "Library Functions Manual"
+.SH NAME
+_printf \- formatted output conversion
+
+.SH SYNOPSIS
+.nf
+#include "main.h"
+.br
+int _printf(const char *format, ...);
+.fi
+
+.SH DESCRIPTION
+The
+.B _printf()
+function produces formatted output on the standard output stream.
+It interprets a format string and converts additional arguments
+according to format specifiers introduced by the character '%'.
+
+Ordinary characters in the format string are written as-is.
+A '%' character introduces a conversion directive, which determines
+how the corresponding argument is formatted and printed.
+
+This implementation provides a minimal subset of the functionality
+of the standard
+.BR printf (3)
+function and is intended for educational use.
+
+.SH CONVERSION SPECIFIERS
+The following conversion specifiers are supported:
+.br
+
+.TP
+.B %c
+The argument is treated as an
+.I int
+and printed as a single character.
+.br
+
+.TP
+.B %s
+The argument is a pointer to a null-terminated string.
+If the pointer is NULL, the string "(null)" is printed.
+.br
+
+.TP
+.B %%
+Prints a literal percent sign.
+.br
+
+.TP
+.B %d , %i
+The argument is a signed integer.  The number is converted to
+decimal notation and printed, including a leading minus sign
+if negative.
+
+.SH RETURN VALUE
+Upon successful completion,
+.B _printf()
+returns the number of characters written.
+
+If
+.I format
+is NULL or a conversion directive is incomplete
+(for example, '%' at the end of the string),
+the function returns -1.
+
+.SH EXAMPLES
+The following examples demonstrate typical usage:
+.br
+.EX
+_printf("Hello %s!\\n", "Holberton");
+.br
+_printf("Value: %d\\n", 42);
+.br
+_printf("Percent: %%\\n");
+.EE
+
+.SH AUTHORS
+Lorenzo Anselme
+.br
+Esteban Callejo
+.br
