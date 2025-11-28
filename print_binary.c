@@ -6,34 +6,34 @@
  *
  * Return: Number of characters printed.
  */
-int print_binary(va_list args)
+int print_binary(va_list args, flags_t *f)
 {
 	unsigned int n = va_arg(args, unsigned int);
 	unsigned int mask = 1 << 31;
-	int started = 0;
-	int count = 0;
+	int started = 0, count = 0;
 
-	while (mask > 0)
+	(void)f;
+
+	while (mask)
 	{
 		if (n & mask)
 		{
 			_putchar('1');
-			count++;
 			started = 1;
+			count++;
 		}
 		else if (started)
 		{
 			_putchar('0');
 			count++;
 		}
-
 		mask >>= 1;
 	}
 
-	if (count == 0)
+	if (!count)
 	{
 		_putchar('0');
-		count = 1;
+		return (1);
 	}
 
 	return (count);

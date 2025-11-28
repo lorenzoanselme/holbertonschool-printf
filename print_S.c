@@ -9,17 +9,19 @@
  *
  * Return: Number of characters printed.
  */
-int print_S(va_list args)
+int print_S(va_list args, flags_t *f)
 {
 	char *str = va_arg(args, char *);
 	int i = 0, count = 0;
 	int ch;
-	char hex[3];
+	char hex[2];
+
+	(void)f;
 
 	if (str == NULL)
 		str = "(null)";
 
-	while (str[i] != '\0')
+	while (str[i])
 	{
 		ch = str[i];
 
@@ -29,9 +31,8 @@ int print_S(va_list args)
 			_putchar('x');
 			count += 2;
 
-			hex[0] = "0123456789ABCDEF"[(ch >> 4) & 0xF];
-			hex[1] = "0123456789ABCDEF"[ch & 0xF];
-			hex[2] = '\0';
+			hex[0] = "0123456789ABCDEF"[ch / 16];
+			hex[1] = "0123456789ABCDEF"[ch % 16];
 
 			_putchar(hex[0]);
 			_putchar(hex[1]);

@@ -8,10 +8,12 @@
  * Return: Number of characters printed (always 1).
  */
 
-int print_char(va_list args)
+int print_char(va_list args, flags_t *f)
 {
-    char c = va_arg(args, int);
+	char c = va_arg(args, int);
 
-    _putchar(c);
-    return (1);
+	(void)f;
+
+	_putchar(c);
+	return (1);
 }

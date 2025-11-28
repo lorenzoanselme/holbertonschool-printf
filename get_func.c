@@ -8,7 +8,7 @@
  * Return: Pointer to the corresponding function, or NULL if not found.
  */
 
-int (*get_func(char s))(va_list)
+int (*get_func(char s))(va_list, flags_t *)
 {
 	int j = 0;
 

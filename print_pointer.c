@@ -1,20 +1,19 @@
 #include "main.h"
 
 /**
- * print_pointer - Prints a memory address in hexadecimal
- * @args: List of variadic arguments
+ * print_pointer - prints a pointer address in hexadecimal
+ * @args: argument list
+ * @f: flags (unused)
  *
- * Description: Prints a pointer in the format 0xHEX...
- * If the pointer is NULL, prints "(nil)".
- *
- * Return: Number of characters printed.
+ * Return: number of chars printed
  */
-int print_pointer(va_list args)
+int print_pointer(va_list args, flags_t *f)
 {
 	void *ptr = va_arg(args, void *);
-	unsigned long addr;
+	unsigned long n;
 	int count = 0;
-	char *hex = "0123456789abcdef";
+
+	(void)f;
 
 	if (ptr == NULL)
 	{
@@ -29,13 +28,13 @@ int print_pointer(va_list args)
 		return (i);
 	}
 
-	addr = (unsigned long)ptr;
+	n = (unsigned long)ptr;
 
 	_putchar('0');
 	_putchar('x');
 	count += 2;
 
-	count += print_unsigned_base(addr, 16, hex);
+	count += print_unsigned_base(n, 16, "0123456789abcdef");
 
 	return (count);
 }

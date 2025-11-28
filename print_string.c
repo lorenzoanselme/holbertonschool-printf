@@ -8,19 +8,22 @@
  * Return: Number of characters printed.
  */
 
-int print_string(va_list args)
+int print_string(va_list args, flags_t *f)
 {
-    char *s = va_arg(args, char *);
-    int i = 0;
+	char *s = va_arg(args, char *);
+	int count = 0, i = 0;
 
-    if (s == NULL)
-        s = "(null)";
+	(void)f;
 
-    while (s[i] != '\0')
-    {
-        _putchar(s[i]);
-        i++;
-    }
+	if (!s)
+		s = "(null)";
 
-    return (i);
+	while (s[i])
+	{
+		_putchar(s[i]);
+		i++;
+		count++;
+	}
+
+	return (count);
 }

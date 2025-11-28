@@ -1,14 +1,25 @@
 #include "main.h"
 
 /**
- * print_hex_lower - Prints an unsigned int in lowercase hexadecimal
- * @args: List of variadic arguments
+ * print_hex_lower - prints unsigned int in lowercase hex
+ * @args: arguments
+ * @f: flags (# supported)
  *
- * Return: Number of characters printed.
+ * Return: number printed
  */
-int print_hex_lower(va_list args)
+int print_hex_lower(va_list args, flags_t *f)
 {
 	unsigned int n = va_arg(args, unsigned int);
+	int count = 0;
 
-	return (print_unsigned_base(n, 16, "0123456789abcdef"));
+	if (f->hash && n != 0)
+	{
+		_putchar('0');
+		_putchar('x');
+		count += 2;
+	}
+
+	count += print_unsigned_base(n, 16, "0123456789abcdef");
+
+	return (count);
 }
